@@ -24,21 +24,29 @@ Below I have taken the data set containing the illegal animals that are being ke
 Pet_NY <- Pets %>%
   left_join(Sanitation,by="incident_address")%>%
   count(Pets, "incident_address",sort = TRUE)
-Pet_NY
+Pet_NY %>%
+  select(incident_address)%>%
+  count(incident_address)
 ```
+Above, we have created a new table which uses the Pets data set and matches its information with the Sanitation set. We use "Left_join" in order to keep the data from the Pet set and "by" to keep the observations in Pet but compare with a specific observation in Sanitation, "incident_address". 
 
-
+We do this to have a column that has the address, and a column that has the number of illegal animals kept as pet complaints for that address.
 
 ```{r pressure, echo=FALSE}
 Sani_NY <- Sanitation %>%
   left_join(Pets,by="incident_address")%>%
-  count(Sanitation, "incident_address")
-Sani_NY
+  count(Sanitation,"incident_address",sort = TRUE)
+Sani_NY%>%
+  select(incident_address)%>%
+  count(incident_address)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Here, we have created a new table which uses the Sanitation data set and matches its information with the Pets set. We use "Left_join" again in order to keep the data from the Sanitation set and "by" to keep the observations in Sanitation but compare with a specific observation in Pets, "incident_address". 
+
+Again, we do this to have a column that has an address, and a column that has the number of sanitation requests for that address.
 
 ```{r}
 full_join(Pet_NY,Sani_NY,by="incident_address")
 ```
 
+With this new data set above, we used "full_join" in order to compare the two tables we have created and joining their observations by the "incident address" column. This would make it so that we have a table which contains only the addresses that have complaints in both sets. 
