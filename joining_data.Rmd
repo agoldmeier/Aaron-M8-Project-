@@ -24,6 +24,7 @@ Below I have taken the data set containing the illegal animals that are being ke
 Pet_NY <- Pets %>%
   left_join(Sanitation,by="incident_address")%>%
   count(Pets, "incident_address",sort = TRUE)
+Pet_NY
 ```
 
 
@@ -32,11 +33,7 @@ Pet_NY <- Pets %>%
 Sani_NY <- Sanitation %>%
   left_join(Pets,by="incident_address")%>%
   count(Sanitation, "incident_address")
-```
-
-
-```{r}
-left_join(Pet_NY,Sani_NY, by="incident_address")
+Sani_NY
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
