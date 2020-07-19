@@ -21,22 +21,27 @@ Through this document I will be comparing the data from NYC regarding illegal an
 Below I have taken the data set containing the illegal animals that are being kept as pets in Queens, and I joined it with the set regarding the requests for the Sanitation department in order to group the complaints by address. 
 
 ```{r cars}
-Pets %>%
+Pet_NY <- Pets %>%
   left_join(Sanitation,by="incident_address")%>%
-  count(Pets, "incident_address")
+  count(Pets, "incident_address",sort = TRUE)
 ```
 
 
 
 ```{r pressure, echo=FALSE}
-Sanitation %>%
+Sani_NY <- Sanitation %>%
   left_join(Pets,by="incident_address")%>%
   count(Sanitation, "incident_address")
 ```
 
 
 ```{r}
-left_join(Pets,Sanitation, by="incident_address")
+left_join(Pet_NY,Sani_NY, by="incident_address")
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+full_join(Pet_NY,Sani_NY,by="incident_address")
+```
+
